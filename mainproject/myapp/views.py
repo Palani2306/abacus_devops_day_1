@@ -24,7 +24,13 @@ def echo(request):
 
     data = json.loads(request.body or '{}')
     return JsonResponse({'received': data}, status=201)
+@csrf_exempt
+def echo1(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
 
+    data = json.loads(request.body or '{}')
+    return JsonResponse({'received': data}, status=201)
 
 @csrf_exempt
 def update_echo(request):
